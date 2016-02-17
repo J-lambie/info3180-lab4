@@ -82,7 +82,14 @@ def send_text_file(file_name):
     """Send your static text file."""
     file_dot_text = file_name + '.txt'
     return app.send_static_file(file_dot_text)
-
+    
+@app.route('/filelisting')
+def filelisting():
+    rootdir=os.getcwd()
+    for subdir,dirs,files in os.walk(rootdir+'/app/static/uploads'):
+        for file in files:
+            filepath=os.path.join(subdir,file)
+    return render_template("filelisting.html",files=files)
 
 @app.after_request
 def add_header(response):
