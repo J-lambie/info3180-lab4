@@ -7,7 +7,7 @@ This file creates your application.
 """
 
 from app import app
-import os
+import os,imghdr
 from flask import session,flash,render_template, request, redirect, url_for
 USERNAME="admin"
 PASSWORD="naseberry"
@@ -86,10 +86,14 @@ def send_text_file(file_name):
 @app.route('/filelisting')
 def filelisting():
     rootdir=os.getcwd()
+    jpgs=[]
     for subdir,dirs,files in os.walk(rootdir+'/app/static/uploads'):
         for file in files:
             filepath=os.path.join(subdir,file)
-    return render_template("filelisting.html",files=files)
+            if (imghdr.what(filepath)=='jpeg'):
+                jpgs+=['/static/uploads/'+file]
+    print jpgs
+    return render_template("filelisting.html",files=files,jpgs=jpgs)
 
 @app.after_request
 def add_header(response):

@@ -9,6 +9,15 @@
 
 <div class="container">
  <h1>Uploaded Files:</h1>
-  {{files}}
+ <ul>
+  {% for file in files %}
+  <li>{{file}}</li>
+  {% endfor%}
+ </ui> 
+ 
+ <h1>Jpg images:</h1>
+  {% for jpg in jpgs %}
+  <br><img src="{{jpg}}"></img>
+  {% endfor%}
 </div>
 {% endblock %}
